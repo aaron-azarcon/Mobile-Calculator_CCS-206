@@ -31,6 +31,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   int sum = 0;
   int difference = 0;
   double product = 0;
+  double quotient = 0;
 
   TextEditingController add1Controller = TextEditingController();
   TextEditingController add2Controller = TextEditingController();
@@ -41,6 +42,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   TextEditingController factor1Controller = TextEditingController();
   TextEditingController factor2Controller = TextEditingController();
 
+  TextEditingController dividendController = TextEditingController();
+  TextEditingController divisorController = TextEditingController();
+
   int firstAddNum = 0;
   int secondAddNum = 0;
 
@@ -49,6 +53,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   double firstMultiplyNum = 0;
   double secondMultiplyNum = 0;
+
+  double firstDivNum = 0;
+  double secondDivNum = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -289,6 +296,80 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               ],
             ),
             // Division Row
+
+            const SizedBox(height: 40),
+
+            Text(
+              "Division",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.green[900],
+              ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: dividendController,
+                    decoration: const InputDecoration(hintText: "First Number"),
+                    onChanged: (value) {
+                      setState(() {
+                        firstDivNum = double.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+                const Text(" / "),
+                Expanded(
+                  child: TextField(
+                    controller: divisorController,
+                    decoration: const InputDecoration(hintText: "Second Number"),
+                    onChanged: (value) {
+                      setState(() {
+                        secondDivNum = double.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+                Text(
+                  ' = $quotient',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+
+                // 3.a Add an IconButton here
+                IconButton(
+                  icon: const Icon(Icons.calculate),
+                  onPressed: () {
+                    setState(() {
+                      quotient = firstDivNum / secondDivNum;
+                    });
+                  },
+                ),
+                // 3.b Add clear button here
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      dividendController.clear();
+                      divisorController.clear();
+                      firstDivNum = 0;
+                      secondDivNum = 0;
+                      quotient = 0;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text("Clear"),
+                )
+              ],
+            ),
           ],
         ),
       ),
