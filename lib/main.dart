@@ -7,7 +7,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,60 +28,72 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
-  // manage the sum section
   int sum = 0;
 
-  // either use a TextEditingController for each input field to get the value
   TextEditingController add1Controller = TextEditingController();
+  TextEditingController add2Controller = TextEditingController();
 
-  // or store each value in the state
   int firstAddNum = 0;
+  int secondAddNum = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Unit 5 Calculator"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          // Add Row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(labelText: "First Number"),
-                  // update the firstAddNum state
-                  onChanged: (value) {
-                    setState(() {
-                      firstAddNum = int.parse(value);
-                    });
-                  },
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(35.0),
+        child: Column(
+          children: [
+            Text(
+                "Calculator",
+                style: TextStyle(
+                fontSize: 30,
+                color: Colors.green[900],
+                fontWeight: FontWeight.bold,
               ),
-              const Text(" + "),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(labelText: "Second Number"),
+            ),
+
+            const SizedBox(height: 70),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: add1Controller,
+                    decoration: const InputDecoration(hintText: "First Number"),
+                    onChanged: (value) {
+                      setState(() {
+                        firstAddNum = int.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
                 ),
-              ),
-
-              Text(' = $sum'),
-              // 3.a Add an IconButton here
-
-              // b.b Add an button here
-            ],
-          ),
-
-          // 3.c - Add the other operations
-          // Minus Row
-
-          // Multiplication Row
-
-          // Division Row
-        ],
+                const Text(" + "),
+                Expanded(
+                  child: TextField(
+                    controller: add2Controller,
+                    decoration: const InputDecoration(hintText: "Second Number"),
+                    onChanged: (value) {
+                      setState(() {
+                        secondAddNum = int.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+                Text(' = $sum'),
+              ],
+            ),
+            IconButton(
+              icon: const Icon(Icons.calculate),
+              onPressed: () {
+                setState(() {
+                  sum = firstAddNum + secondAddNum;
+                });
+              },
+            ),
+            // Other operations can be added here for subtraction, multiplication, and division.
+          ],
+        ),
       ),
     );
   }
