@@ -108,6 +108,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 // 3.b Add clear button here
                 ElevatedButton(
                   onPressed: () {
+                    setState(() {
+                      add1Controller.clear();
+                      add2Controller.clear();
+                      firstAddNum = 0;
+                      secondAddNum = 0;
+                      sum = 0;
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
