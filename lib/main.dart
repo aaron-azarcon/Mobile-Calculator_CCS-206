@@ -346,7 +346,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   icon: const Icon(Icons.calculate),
                   onPressed: () {
                     setState(() {
-                      quotient = firstDivNum / secondDivNum;
+                      quotient = secondDivNum != 0 ? firstDivNum / secondDivNum : 0;
                     });
                   },
                 ),
