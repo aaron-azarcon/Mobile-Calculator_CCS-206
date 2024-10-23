@@ -29,12 +29,19 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
   int sum = 0;
+  int difference = 0;
 
   TextEditingController add1Controller = TextEditingController();
   TextEditingController add2Controller = TextEditingController();
 
+  TextEditingController sub1Controller = TextEditingController();
+  TextEditingController sub2Controller = TextEditingController();
+
   int firstAddNum = 0;
   int secondAddNum = 0;
+
+  int firstSubNum = 0;
+  int secondSubNum = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +134,79 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ),
             // 3.c - Add the other operations
             // Minus Row
+            const SizedBox(height: 40),
 
+            Text(
+              "Subtraction",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.green[900],
+              ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: sub1Controller,
+                    decoration: const InputDecoration(hintText: "First Number"),
+                    onChanged: (value) {
+                      setState(() {
+                        firstSubNum = int.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+                const Text(" - "),
+                Expanded(
+                  child: TextField(
+                    controller: sub2Controller,
+                    decoration: const InputDecoration(hintText: "Second Number"),
+                    onChanged: (value) {
+                      setState(() {
+                        secondSubNum = int.tryParse(value) ?? 0;
+                      });
+                    },
+                  ),
+                ),
+                Text(
+                  ' = $difference',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+
+                // 3.a Add an IconButton here
+                IconButton(
+                  icon: const Icon(Icons.calculate),
+                  onPressed: () {
+                    setState(() {
+                      difference = firstSubNum - secondSubNum;
+                    });
+                  },
+                ),
+                // 3.b Add clear button here
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      sub1Controller.clear();
+                      sub2Controller.clear();
+                      firstSubNum = 0;
+                      secondSubNum = 0;
+                      difference = 0;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text("Clear"),
+                )
+              ],
+            ),
             // Multiplication Row
 
             // Division Row
