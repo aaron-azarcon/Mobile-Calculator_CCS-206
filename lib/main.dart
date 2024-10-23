@@ -54,6 +54,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
             const SizedBox(height: 70),
 
+            Text(
+              "Addition",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.green[900],
+              ),
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -80,18 +88,42 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     },
                   ),
                 ),
-                Text(' = $sum'),
+                Text(
+                    ' = $sum',
+                    style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+
+                // 3.a Add an IconButton here
+                IconButton(
+                  icon: const Icon(Icons.calculate),
+                  onPressed: () {
+                    setState(() {
+                      sum = firstAddNum + secondAddNum;
+                    });
+                  },
+                ),
+                // 3.b Add clear button here
+                ElevatedButton(
+                  onPressed: () {
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text("Clear"),
+                )
               ],
             ),
-            IconButton(
-              icon: const Icon(Icons.calculate),
-              onPressed: () {
-                setState(() {
-                  sum = firstAddNum + secondAddNum;
-                });
-              },
-            ),
-            // Other operations can be added here for subtraction, multiplication, and division.
+            // 3.c - Add the other operations
+            // Minus Row
+
+            // Multiplication Row
+
+            // Division Row
           ],
         ),
       ),
